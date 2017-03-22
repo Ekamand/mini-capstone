@@ -1,27 +1,22 @@
-<body>
 
-<tr>
-  <td><h2>Table of All Available Products</td></h2>
-</tr>
-   <!-- launch add item modal -->
-<center>
 <div class="well well-sm">
+  <center>
+    <h2 id="page_header">Welcome to the Mini Capstore</h2>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary">Sort By</button>
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="/products?sort=name&sort_order=asc">Name</a></li>
+        <li><a href="/products?sort=name&sort_order=desc">Name Descending</a></li>
+        
+        <li><a href="/products?sort=price&sort_order=asc">By Price Ascending</a></li>
+        <li><a href="/products?sort=price&sort_order=desc">by price Descending</a></li>
+      </ul>
+    </div>
 
-<div class="btn-group">
-  <button type="button" class="btn btn-primary">Sort By</button>
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="/products?sort=name">Name</a></li>
-    <li><a href="/products?sort=name&sort_order=desc">Name Descending</a></li>
-    
-    <li><a href="/products?sort=price&sort_order=asc">By Price Ascending</a></li>
-    <li><a href="/products?sort=price&sort_order=desc">by price Descending</a></li>
-  </ul>
-</div>
-
-<div class="btn-group">
+<!-- <div class="btn-group">
   <button type="button" class="btn btn-primary">Category</button>
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>
@@ -33,50 +28,63 @@
     <li><a href="/products?sort=price&sort_order=asc">By Price Ascending</a></li>
     <li><a href="/products?sort=price&sort_order=desc">by price Descending</a></li>
   </ul>
+</div> -->
+  </center>
 </div>
 
-</div>
-</center>
 
 <center>
-<% @products.each_slice(4) do |three_items| %>
+  <% @products.each_slice(4) do |three_items| %>
 
-<div class="row">
+    <div class="row">
 
-<% three_items.each do |item| %>
-   <div class="col-md-3">
-    <div class="well well-sm">
-    <div class="item" >
+      <% three_items.each do |item| %>
+        <div class="col-md-3">
+          <div class="well well-sm">
+            <div class="item" >
+                 <a href= "/products/<%= item.id %>" >
+                    
+                 <img class="thumbnail img-responsive" src="<%= item.images.first.photo %>" alt="No image available">
+                 </a>
+                  <br>
+                 <a id="item_title" href= "/products/<%= item.id %>" > <%= item[:name] %> </a>
+                  <br>
 
-   <a href= "/products/<%= item.id %>" >
-      <img class="thumbnail img-responsive" src="<%= item.image_checker %>" alt="<%= item.image_checker %>"> 
-   </a>
- <br>
-<a href= "/products/<%= item.id %>" > <%= item[:name] %> </a>
-<br>
+              <textarea rows="3"  id="item_description" style="resize: none;"><%= item[:description] %></textarea>
+              <!-- <br>
+              <a href="#demo" data-toggle="collapse">Read More..</a>
+                <div id="demo" class="collapse">
+              <%= item[:description] %>
+                </div> -->
+              <br> 
+                    
+              <% if item.price <= 2 %>
+                <div class="item_sale_message_red">
+                 <%= item.sale_message %>
+                </div>
+              <% else %>
+                <div class="item_sale_message_green">
+                 <%= item.sale_message %>
+                </div>
+              <% end %>
 
-<textarea rows="3"  id="aboutDescription"
-    style="resize: none;">
-<%= item[:description] %></textarea>
-<!-- <br>
-<a href="#demo" data-toggle="collapse">Read More..</a>
-  <div id="demo" class="collapse">
-<%= item[:description] %>
-  </div> -->
-<br>
 
-
-$<%=item[:price] %> <%= item.sale_message %>
-<br>
-Sales tax: $<%= item.tax %>
-<br>
-Total: $<%= item.total %>
-
-</div>
-</div>
-</div>
-<% end %>
-
-</div>  
+              <div id="item_price">
+                   $<%=item[:price] %>
+              </div> 
+              <br>
+              <div id="item_tax">
+                 Sales tax: $<%= item.tax %>
+              </div>
+              <br>
+              <div id="item_total_price">
+                 Total: $ <%= item.total %>
+              </div>
+                  
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>  
   <% end %>
-  </body>
+</center>

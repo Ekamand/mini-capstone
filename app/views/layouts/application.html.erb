@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>MiniCapstone</title>
-    <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <head>
+      <title>MiniCapstone</title>
+      <%= csrf_meta_tags %>
+
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
 
   <body>
-
-  <nav class="navbar navbar">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/products">WebSiteName</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="/products">Home</a></li>
-      <li><a href="/products/new">New Item</a></li>
-    </ul>
-    <!-- SEARCH FUNCTION-->
-    
-    <form class="navbar-form navbar-right">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
+    <nav class="navbar navbar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/products">Mini Capstore</a>
         </div>
+
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/products">Home</a></li>
+        <li><a href="/products/new">New Item</a></li>
+        <li><a href="/products?price=low">Discount Items</a></li>
+
+        <% if current_user %> 
+          <li><a href="/logout">Logout</a></li>
+        <% else %> 
+          <li><a href="/login">Login</a></li>
+        <% end %>
+      </ul>
+
+      <!-- SEARCH FUNCTION-->
+      <%= form_tag "/search", :class=>"navbar-form navbar-right", method: :post do %>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" name="search_term">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+               <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+        </div>
+      <% end %>
       </div>
-    </form>
+    </nav>  
 
-
-
-    <!-- =========================== -->
-
+  <div class= "container">
+  	<% flash.each do |name, message| %>
+  		<div class="alert alert-<%= name %> alert-dismissible fade in" role="alert">
+  		<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+  			<p> <%= message %> </p> 
+  		</div>
+  	<% end %>
   </div>
-</nav>
 
-<div class= "container">
-	<% flash.each do |name, message| %>
-		<div class="alert alert-<%= name %> alert-dismissible fade in" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-			<p> <%= message %> </p> 
-		</div>
-	<% end %>
-</div>
-
-<div class="container">
-    <%= yield %>
-    </div>
+  <div class="container">
+      <%= yield %>
+      </div>
   </body>
 </html>

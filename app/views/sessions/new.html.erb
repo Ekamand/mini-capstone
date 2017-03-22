@@ -1,0 +1,43 @@
+<body>
+  <center>
+	<div class="container-fluid">  
+	  <div class="col-lg-12"> 
+		<div class="well">   
+		  <div class="item">
+
+<h1>Login</h1>
+<%= form_tag "/login", method: :post do %>
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">Email Address:</label>
+        <div class="col-sm-9">
+    <input type="email" name="user_email" class="form-control">
+       </div>
+  </div>
+<br>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Password:</label>
+        <div class="col-sm-9">
+    <input type="password" name="user_password" class="form-control">
+  </div>
+  </div>
+  <br>
+
+  <input type="submit" value="Log In">
+<% end %>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+</center>
+</body>

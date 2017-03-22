@@ -1,17 +1,35 @@
-
-
 class ProductsController < ApplicationController
+
+	 
 
 	def index
 		sort = params[:sort]
 		sort_order = params[:sort_order]
+		price = params[:price]
 
-		if sort && sort_order
+
+		if price
+			@products = Product.where("price < ?", 2)
+			if sort 
+				@products = @products.order(:price)
+			end
+		elsif sort && sort_order
 			@products = Product.all.order(sort)
 			@products = Product.all.order(sort => sort_order)
 		else 
 			@products = Product.all
 		end
+	end
+
+
+	def discription_split
+		products.split(", ")
+	end
+
+	def search
+		search_term = params[:search_term]
+		@products = Product.where("name ILIKE?", "%#{search_term}%")
+		render :index
 	end
 
 	def show
