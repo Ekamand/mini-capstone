@@ -1,12 +1,12 @@
 class SuppliersController < ApplicationController
  
-
+	before_action :authenticate_user! 
 	def index
-		@supplier = Supplier.all
+		@suppliers = Supplier.all
 	end
 
 		def show
-		
+		@suppliers = Supplier.all
 	end
 
 	# def suppliers

@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
 	belongs_to :supplier
 	has_many :images
+	has_many :order
 
  #  def image_checker
 	# @product = @images.first.photo

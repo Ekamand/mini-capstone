@@ -3,9 +3,14 @@ class ApplicationController < ActionController::Base
 
 	def current_user 
 		@current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
-
 	end
 
-helper_method :current_user   #tomake method available
+helper_method :current_user   #to make method available
+
+
+def authenticate_user!
+			redirect_to "/login" unless current_user
+		end
+
 
 end

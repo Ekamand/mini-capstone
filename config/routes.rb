@@ -50,6 +50,10 @@ Rails.application.routes.draw do
     #logout
     get "/logout" => "sessions#destroy"
 
+    #orders
+    get "/orders/:id" => "orders#show"
+    post "/orders" => "orders#create"
+
     # #search
     # post "/search" => "products#search"
     # get "/search" => "products#search"

@@ -38,6 +38,27 @@
         </div>
     </div>
 
+    <div class="form-group">
+      <label class="control-label col-sm-3">Supplier id:</label>
+        <div class="col-sm-9">          
+         <input type="text" class="form-control" value="<%= @product.supplier_id %>" name="input_supplier_id">
+          <br>
+        </div>
+    </div>
+
+<div class="form-group">
+<label class="control-label col-sm-3">Stock:</label>
+<div class="col-sm-9">
+<input type="text" class="form-control" placeholder="Stock" name="input_stock" value = "<%= @product.stock %>"><br>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-3">user id: is hidden..</label>
+<div class="col-sm-9">          
+<input type="hidden" class="form-control" placeholder=" user id" name="user_id" value="<%= current_user.id %>">
+<br></div>
+</div>
+
 	<center><input type="submit" value ="Update" class="btn btn-info" data-toggle="modal"></center>
 	
 

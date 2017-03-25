@@ -43,9 +43,15 @@
           <div class="well well-sm">
             <div class="item" >
                  <a href= "/products/<%= item.id %>" >
-                    
+
+                  <% if item.images.first.photo == false %>
+                    <%= image_tag "not_found.png", :class => "thumbnail" %>
+                    <%= puts "*************************" %>
+                               
+                 <% else %>
                  <img class="thumbnail img-responsive" src="<%= item.images.first.photo %>" alt="No image available">
                  </a>
+                 <% end %>
                   <br>
                  <a id="item_title" href= "/products/<%= item.id %>" > <%= item[:name] %> </a>
                   <br>

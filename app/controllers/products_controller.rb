@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-	 
+	 before_action :authenticate_user! 
 
 	def index
 		sort = params[:sort]
@@ -34,21 +34,24 @@ class ProductsController < ApplicationController
 
 	def show
 		@products = Product.all
-
+		# @order = @order.find_by(id:)
 		item_id = params[:id]
 		puts "=" *50
 		puts "selected item id: " +item_id
 		puts "=" *50
 		@product = Product.find_by(id: item_id)
+		# @stock = @product.stock -= self.order.quantity
 	end
 
 	def create
 	  if params[:input_name] == nil
 	  else
 	  	puts "*" * 100
-	  	@product = Product.create(name: params[:input_name], description: params[:input_description], price: params[:input_price], image: params[:input_image])
+	  	@product = Product.create(name: params[:input_name], description: params[:input_description], price: params[:input_price],
+	  	 supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock])
 	  	# @product = Product.id
-
+	  	# @image = Image.create(photo: params[:input_image])
+	  	# @product.save
 	  	flash[:success] = "item created successfully!"
 
 	  	redirect_to "/products/#{@product.id}"
@@ -61,10 +64,13 @@ class ProductsController < ApplicationController
 	def update
 
 		@product = Product.find_by(id: params[:id])
-		puts "*" *100
-		@product.update({name: params[:input_name], description: params[:input_description], price: params[:input_price], image: params[:input_image]})	
+		
 
-		@product.save
+		puts "*" *100
+		@product.update(name: params[:input_name], description: params[:input_description], price: params[:input_price],
+		supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock],)	
+		puts @product.inspect
+		# @product.save
 		flash[:info] = "item updated successfully!"
 		redirect_to "/products"
 		# redirect_to "/products/#{@product.id}"

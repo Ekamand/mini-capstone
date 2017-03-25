@@ -54,10 +54,8 @@
 	/*margin-top: 0px;*/
 	background-color: rgba(21, 27, 26, 0.8);
 	position: center;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
+
+    color: white;
 }
 #item_id
 {
