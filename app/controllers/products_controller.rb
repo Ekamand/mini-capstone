@@ -19,6 +19,16 @@ class ProductsController < ApplicationController
 		else 
 			@products = Product.all
 		end
+		@categories = Category.all
+		category_id = params[:category_id]
+		if category_id 
+			@category = Category.find_by(id: category_id)
+			@products = @category.products
+		else 
+			@products = Product.all
+		end
+
+
 	end
 
 
@@ -33,13 +43,17 @@ class ProductsController < ApplicationController
 	end
 
 	def show
-		@products = Product.all
+		@product = Product.all
 		# @order = @order.find_by(id:)
 		item_id = params[:id]
 		puts "=" *50
 		puts "selected item id: " +item_id
 		puts "=" *50
 		@product = Product.find_by(id: item_id)
+
+		@product_price = @product.price
+		@product_tax = @product_price * 0.0875
+		@product_total = @product_price + @product_tax
 		# @stock = @product.stock -= self.order.quantity
 	end
 
@@ -50,7 +64,7 @@ class ProductsController < ApplicationController
 	  	@product = Product.create(name: params[:input_name], description: params[:input_description], price: params[:input_price],
 	  	 supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock])
 	  	# @product = Product.id
-	  	# @image = Image.create(photo: params[:input_image])
+	  	@image = Image.create(photo: params[:input_image])
 	  	# @product.save
 	  	flash[:success] = "item created successfully!"
 
@@ -69,7 +83,7 @@ class ProductsController < ApplicationController
 		puts "*" *100
 		@product.update(name: params[:input_name], description: params[:input_description], price: params[:input_price],
 		supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock],)	
-		puts @product.inspect
+		# puts @product.inspect
 		# @product.save
 		flash[:info] = "item updated successfully!"
 		redirect_to "/products"
@@ -92,5 +106,14 @@ class ProductsController < ApplicationController
 
 		flash[:danger] = "item deleted successfully!"
 		redirect_to "/products"
+
+
+			def tax
+		tax = @product_price.to_i * 8.50/100
+	end
+
+	def total 
+		total = @product_price.to_i + tax.to_i
+	end
 	end
 end

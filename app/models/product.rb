@@ -3,6 +3,9 @@ class Product < ApplicationRecord
 	has_many :images
 	has_many :order
 
+	has_many :categories, through: :categorized_products
+	has_many :categorized_products
+
  #  def image_checker
 	# @product = @images.first.photo
 	# if @product == ""
@@ -16,8 +19,8 @@ class Product < ApplicationRecord
  #  end
 
   def sale_message
-	@product = self.price
-	if @product < 2 
+	@product_price = self.price
+	if @product_price < 2 
 		"Discount Item!"
 	else
 		return "Everyday low price!!"
@@ -25,10 +28,10 @@ class Product < ApplicationRecord
   end
 
 	def tax
-		tax = self.price * 9/100
+		tax = @product_price.to_i * 9/100
 	end
 
 	def total 
-		total = @product + tax 
+		total = @product_price.to_i + tax.to_i
 	end
 end

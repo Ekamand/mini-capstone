@@ -15,9 +15,11 @@
  */
 
  body {
-    background-image: url("san_francisco_wallpaper.jpg");
+    /*background-image: url("san_francisco_wallpaper.jpg");*/
+    background-color: #F2F2F2;
     background-attachment: fixed;
     background-size: cover;
+    padding-top: 70px;
 }
 
  .thumbnail{
@@ -46,26 +48,38 @@
 }
 #page_header
 {
-	color: white;
+	color: #5E5E5E;
 }
 
 .well 
 {
 	/*margin-top: 0px;*/
-	background-color: rgba(21, 27, 26, 0.8);
-	position: center;
+	/*background-color: rgba(209, 238, 255, 0.8);*/
+  background-color: #ededed;
+	/*position: center;*/
+  border-width: 1px;
+  border-color: gray;
 
-    color: white;
+    /*color: white;*/
+}
+
+.panel-heading 
+{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 25px;
+  padding-right: 15px;
 }
 #item_id
 {
-	color: orange;
+	color: gray;
+  /*text-align: left;*/
 }
 
 #item_title 
 {
 	font-size: 22px;
-	color: #CFCFCF;
+	color: #5E5E5E;
 }
 
 #item_description
@@ -76,7 +90,7 @@
     background: transparent;
     border: 0px;
     scroll-behavior: smooth;
-    color: white;
+    color: black;
 }
 #item_price
 {
@@ -95,11 +109,13 @@
 
 #item_tax
 {
-	color: white;
+	color: gray;
+  font-size: 17px;
 }
 #item_total_price
 {
-	font-size: 22px;
+	font-size: 20px;
+
 	color: #FF2B4B;
 }
 
