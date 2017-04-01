@@ -18,9 +18,18 @@
 
       <ul class="nav navbar-nav">
         <li class="active"><a href="/products">Home</a></li>
+        <% if current_user && current_user.admin %>
         <li><a href="/suppliers">Suppliers</a></li>
         <li><a href="/products/new">New Item</a></li>
+        <% end %>
         <li><a href="/products?price=low">Discount Items</a></li>
+
+<li><a href="/cart">
+        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+        
+        <%= shopping_cart_count %>
+</a></li>
+        
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

@@ -14,9 +14,13 @@
  *= require_self
  */
 
+ .page_title {
+  color: #5E5E5E;
+ }
+
  body {
     /*background-image: url("san_francisco_wallpaper.jpg");*/
-    background-color: #F2F2F2;
+    background-color: #fff;
     background-attachment: fixed;
     background-size: cover;
     padding-top: 70px;
@@ -46,19 +50,18 @@
     /*max-height: 500px;*/
     /*height: 500px;*/
 }
-#page_header
-{
-	color: #5E5E5E;
-}
+
 
 .well 
 {
 	/*margin-top: 0px;*/
 	/*background-color: rgba(209, 238, 255, 0.8);*/
-  background-color: #ededed;
+  background-color: #fff;
 	/*position: center;*/
-  border-width: 1px;
-  border-color: gray;
+  /*border-width: 1px;*/
+  /*border-color: gray;*/
+  box-shadow: 0 0 3px gray; 
+  /*shape-outside: 30px;*/
 
     /*color: white;*/
 }
@@ -119,8 +122,11 @@
 	color: #FF2B4B;
 }
 
-
-.table 
+.table_table-striped
+{
+ color: white;
+  background-color: rgba(21, 27, 26, 0.8); 
+}
 {
   color: white;
   background-color: rgba(21, 27, 26, 0.8);

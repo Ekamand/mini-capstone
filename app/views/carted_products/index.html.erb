@@ -1,0 +1,48 @@
+<div class="container"> 
+<div class="well well-lg">
+
+<h2 class="page_title"> Shopping Cart </h2>
+<br>
+<!-- <%= @carted_product.inspect %> -->   
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      <th></th>
+        <th class="col-md-2">Product Name</th>
+        <th class="col-md-2">Price</th>
+        <th class="col-md-2">Quantity</th>
+        <th class="col-md-2">Subtotal</th>
+        <th class="col-md-2"></th>
+      </tr>
+    </thead>
+    
+
+    <% @carted_products.each do |carted_product| %>
+        <tbody> 
+          <tr>
+          <td lass="col-md-2"><img src="<%= carted_product.product.images.first.photo %>" class="thumbnail col-md-2" ></td>
+            <td class="col-md-2"><h5><%= carted_product.product.name %></h5></td>
+            <td class="col-md-2"><h5><%= number_to_currency(carted_product.product.price.round(2)) %> </h5></td>
+            <td class="col-md-2">
+              <input type="text" class="form-control" name="input_quantity" value="<%= carted_product.quantity %>">
+            </td>
+            </div>
+            <td><h5><%= carted_product.product.price * carted_product.quantity %> </h5></td>
+            <!-- <td><h5><%= carted_product.quantity %></h5></td> -->
+            <!-- <input  type="submit" value ="Buy Now!" class="btn btn-success" value="/carted_products/#{carted_product.id}"> -->
+            <td><%= link_to "Delete", "/carted_products/#{carted_product.id}",:class => "btn btn-danger", method: :delete %></td>
+            <%= form_tag "/carted_products/#{carted_product.id}", method: :patch do %>
+            <td><input  type="submit" value ="Update" class="btn btn-success"></td>
+            
+            <% end %>
+          </tr>
+        </tbody>
+    <% end %>
+  </table>
+	
+	</div>
+	   <%= form_tag "/orders", method: :post do %>
+	       <input  type="submit" value ="Check out" class="btn btn-success">	
+		 <% end %>
+</div>
+    

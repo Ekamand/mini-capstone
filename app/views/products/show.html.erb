@@ -1,120 +1,35 @@
-<div class="panel panel-default">
-  <div class="panel-heading"> 
-
-	<table >
-		<tr>
-			<td><h3 class="item-title"><%= @product.name %></h3></td>
-			<td><a href="/products/<%= @product.id %>/edit" class="btn btn-info pull-right" role="button">Edit item</a></td>
-			<td><%= link_to "delete item", "/products/#{@product.id}", :class => 'btn btn-danger pull-right', method: :delete %></td>
-		</tr>
-	</table>
-
-  </div>
-
-
- 	 <div class="panel-body">
-
-		    <center>
-				<% if @product.images.first == false %>
-	                <img src="not_found.png" %>
-				<% else %>
-					<img src="<%= @product.images.first.photo %>" class="thumbnail" >
-				<% end %>
-				
-
-				<div id="item_id">
-					Item id: <%= @product.id %>
-				</div>
-				
-
-				<div id="item_id">
-					Supplier: <%= @product.supplier.name %>
-				</div>
-				
-				<div id="item_id">
-					In Stock: <%= @product.stock %>
-				</div>
-				<br>
-
-				<div id="item_description">
-					<%= @product.description %>
-				</div>
-				<br>
-				
-				<div id="item_price"> 
-					Item Price: $<%= @product.price %>
-				</div>
-				<div id="item_tax">
-	                 Sales tax: <%= number_to_currency(@product_tax.round(2)) %>
-	            </div>
-	            <br>
-                <div id="item_total_price">
-                    Total: <%= number_to_currency(@product_total.round(2)) %>
-                </div>
-				<br>
-			</center>
-
-			<%= form_tag "/orders", method: :post do %>
-				<table> 
-				   <tr>
-					<td><input type="hidden" class="form-control" placeholder="product id" name="input_product_id" value="<%= @product.id %>"></td>
-					<td><label>QTY: </label></td>
-				     <% if @product.stock == 0 %> 
-					<td><fieldset disabled><input type="text" class="form-control" placeholder="not in stock!!" name="input_order_qty"></fieldset></td>
-					<td><input  type="button" value ="Buy Now!" class="btn btn-success disabled"></td>
-					<% else %>
-					<td><input type="text" class="form-control" placeholder="QTY" name="input_order_qty"></td>
-					<td><input  type="submit" value ="Add to Cart!" class="btn btn-success"></td>
-						
-				  </tr>
-				    <% end %>
-				</table>
-			<% end %>
-		  
-		</div>
-	  </div>
-
-
-
-
-	</div>
-  </center>
-  </div>
-</div>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
   <center>
-	<div class="container-fluid">  
+	<div class="container">  
 	  <div class="col-lg-12"> 
 		<div class="well">   
 		  <div class="item">
-		  <table >
-			<tr>
-				<td><a href="/products/<%= @product.id %>/edit" class="btn btn-info" role="button">Edit item</a></td>
-				<td><%= link_to "delete item", "/products/#{@product.id}", :class => 'btn btn-danger', method: :delete %></td>
-		    </tr>
 
-		    </table>
+
+
+			<% if @product.errors.any? %>
+				<div>
+				    <%= pluralize(@product.errors.count, "error") %>
+					<ul>
+						<% @product.errors.full_messages.each do |error| %>
+						<li> <%= error %></li>
+
+						<% end %> 
+					</ul>
+				</div>
+			<% end %>
+
+			<% if current_user && current_user.admin %>
+		 		 <table >
+					<tr>
+						<td><a href="/products/<%= @product.id %>/edit" class="btn btn-info" role="button">Edit item</a></td>
+						<td><%= link_to "delete item", "/products/#{@product.id}", :class => 'btn btn-danger', method: :delete %></td>
+		  			  </tr>
+
+		    	</table>
+		    
 			<br>
 		    <br>
+		    <% end %>
 			<% if @product.images.first == false %>
                 <img src="not_found.png" %>
 			<% else %>
@@ -160,23 +75,20 @@
 			<br>
 
 
-			<%= form_tag "/orders", method: :post do %>
-				<table> <div class="container pull-right">
-						<input type="hidden" class="form-control" placeholder="product id" name="input_product_id" value="<%= @product.id %>">
-					<tr>
-						<td><label>QTY: </label></td>
-						<% if @product.stock == 0 %> 
-
-						<td><fieldset disabled><input type="text" class="form-control" placeholder="not in stock!!" name="input_order_qty"></td>
-						<td><input  type="button" value ="Buy Now!" class="btn btn-success disabled"></td>
-						<% else %>
+			<%= form_tag "/carted_products", method: :post do %>
+				<table> 
+				   <tr>
+					<td><input type="hidden" class="form-control" placeholder="product id" name="input_product_id" value="<%= @product.id %>"></td>
+					<td><label>QTY: </label></td>
+				     <% if @product.stock == 0 %> 
+					<td><fieldset disabled><input type="text" class="form-control" placeholder="not in stock!!" name="input_product_qty"></fieldset></td>
+					<td><input  type="button" value ="Add to Cart" class="btn btn-success disabled"></td>
+					<% else %>
+					<td><input type="text" class="form-control" placeholder="QTY" name="input_product_qty"></td>
+					<td><input  type="submit" value ="Add to Cart!" class="btn btn-success"></td>
 						
-						<td><input type="text" class="form-control pull-right" placeholder="QTY" name="input_order_qty"></td>
-						<td><input  type="submit" value ="Buy Now!" class="btn btn-success"></td>
-						
-					</tr><% end %>
-					</div>
-
+				  </tr>
+				    <% end %>
 				</table>
 			<% end %>
 		  
@@ -185,4 +97,4 @@
 	</div>
   </center>
 
-  <!-- ////////////////////////////////////////////// -->
+  <!-- //////////////////////////////////////////////

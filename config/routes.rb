@@ -8,20 +8,20 @@ Rails.application.routes.draw do
     get "/products/new" => "products#new"
     post "/products" => "products#create"
 
-    get "/products/:id" => "products#show"
 
+    # Supplier Edit and update
+    get  "/suppliers/:id/edit" => "suppliers#edit" 
+    patch "/suppliers/:id" => "suppliers#update"
+    
+    get "/products/:id" => "products#show"
     # Edit and update
     get  "/products/:id/edit" => "products#edit" 
     patch "/products/:id" => "products#update"
-
-    # get "/products/:id/destroy" => "products#destroy"
     delete "/products/:id" => "products#destroy"
 
     #search
     post "/search" => "products#search"
     get "/search" => "products#search"
-
-
 
     # Suppliers ================================================================
     get "/suppliers" => "suppliers#index"
@@ -31,13 +31,9 @@ Rails.application.routes.draw do
 
     get "/suppliers/:id" => "suppliers#show"
 
-    # Edit and update
-    get  "/suppliers/:id/edit" => "suppliers#edit" 
-    patch "/suppliers/:id" => "suppliers#update"
-
     # get "/products/:id/destroy" => "products#destroy"
     delete "/suppliers/:id" => "suppliers#destroy"
-
+    #====================================================================
 
     #signup
     get "/signup" => "users#new"
@@ -54,9 +50,10 @@ Rails.application.routes.draw do
     get "/orders/:id" => "orders#show"
     post "/orders" => "orders#create"
 
-    # #search
-    # post "/search" => "products#search"
-    # get "/search" => "products#search"
+    get "/cart" => "carted_products#index"
+    post "/carted_products" => "carted_products#create"
+    delete "/carted_products/:id" => "carted_products#destroy"
+    patch "/carted_products/:id" => "carted_products#update"
 
 
 end

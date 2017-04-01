@@ -1,19 +1,18 @@
-
 <div class="well well-sm">
   <center>
-    <h2 id="page_header">Welcome to the Mini Capstore</h2>
+    <h2 class="page_title">Welcome to the Mini Capstore</h2>
     <div class="btn-group">
-      <button type="button" class="btn btn-primary">Sort By</button>
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="/products?sort=name&sort_order=asc">Name</a></li>
-        <li><a href="/products?sort=name&sort_order=desc">Name Descending</a></li>
-        
-        <li><a href="/products?sort=price&sort_order=asc">By Price Ascending</a></li>
-        <li><a href="/products?sort=price&sort_order=desc">by price Descending</a></li>
-      </ul>
+        <button type="button" class="btn btn-primary">Sort By</button>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="/products?sort=name&sort_order=asc">Name</a></li>
+          <li><a href="/products?sort=name&sort_order=desc">Name Descending</a></li>
+          
+          <li><a href="/products?sort=price&sort_order=asc">By Price Ascending</a></li>
+          <li><a href="/products?sort=price&sort_order=desc">by price Descending</a></li>
+        </ul>
     </div>
     
       <% if @category %> 
@@ -22,64 +21,26 @@
 
       <br> 
             
-<!--       <div class="btn-group">
-        <button type="button" class="btn btn-primary">Category</button>
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-      <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-      <% @categories.each do |category| %>
-      
-      <li><a href="/products?category_id=<%= category.id %>"> <%= category.name %> </a></li>
-      <% end %>
-      </ul>
-         </div>   -->    
 
-<!-- <div class="btn-group">
-  <button type="button" class="btn btn-primary">Category</button>
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="/products?sort=name">Name</a></li>
-    <li><a href="/products?sort=name&sort_order=desc">Name Descending</a></li>
-    
-    <li><a href="/products?sort=price&sort_order=asc">By Price Ascending</a></li>
-    <li><a href="/products?sort=price&sort_order=desc">by price Descending</a></li>
-  </ul>
-</div> -->
   </center>
 </div>
 
 
 <center>
   <% @products.each_slice(4) do |three_items| %>
-
     <div class="row">
-
       <% three_items.each do |item| %>
         <div class="col-md-3">
           <div class="well well-sm">
             <div class="item" >
                  <a href= "/products/<%= item.id %>" >
-
-
                  <img class="thumbnail img-responsive" src="<%= item.images.first.photo %>" alt="No image available">
                  </a>
-                 
-                  <br>
+                  <!-- <br> -->
                  <a id="item_title" href= "/products/<%= item.id %>" > <%= item[:name] %> </a>
                   <br>
-
-              <textarea rows="3"  id="item_description" style="resize: none;"><%= item[:description] %></textarea>
-              <!-- <br>
-              <a href="#demo" data-toggle="collapse">Read More..</a>
-                <div id="demo" class="collapse">
-              <%= item[:description] %>
-                </div> -->
-                
-                    
-              <% if item.price <= 2 %>
+                 <textarea rows="3"  id="item_description" style="resize: none;"><%= item[:description] %></textarea>
+              <% if item.price < 2 %>
                 <div class="item_sale_message_red">
                  <%= item.sale_message %>
                 </div>
@@ -89,13 +50,10 @@
                 </div>
               <% end %>
               <br>
-
-
               <div id="item_price">
                    $<%=item[:price] %>
               </div> 
               <br>
-                  
             </div>
           </div>
         </div>

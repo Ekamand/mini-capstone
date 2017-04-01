@@ -1,10 +1,19 @@
 class Product < ApplicationRecord
 	belongs_to :supplier
 	has_many :images
-	has_many :order
+	has_many :carted_products
+	has_many :orders, through: :carted_products
 
 	has_many :categories, through: :categorized_products
 	has_many :categorized_products
+
+
+
+	validates :name, presence: true, numericality: false
+	validates :price, presence: true
+	validates :price, numericality: { greater_than: 0}
+	validates :stock, presence: true
+	validates :stock, numericality: { greater_than: 0}
 
  #  def image_checker
 	# @product = @images.first.photo

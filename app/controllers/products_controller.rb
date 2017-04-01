@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
 
-	 before_action :authenticate_user! 
+	  before_action :authenticate_user!, except: [:index, :show, :search]
+	 before_action :authenticate_admin!, except: [:index, :show, :search]
 
 	def index
 		sort = params[:sort]
@@ -46,9 +47,6 @@ class ProductsController < ApplicationController
 		@product = Product.all
 		# @order = @order.find_by(id:)
 		item_id = params[:id]
-		puts "=" *50
-		puts "selected item id: " +item_id
-		puts "=" *50
 		@product = Product.find_by(id: item_id)
 
 		@product_price = @product.price
@@ -58,21 +56,29 @@ class ProductsController < ApplicationController
 	end
 
 	def create
-	  if params[:input_name] == nil
-	  else
-	  	puts "*" * 100
-	  	@product = Product.create(name: params[:input_name], description: params[:input_description], price: params[:input_price],
-	  	 supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock])
+
+	  	@product = Product.new(name: params[:input_name], 
+	  		description: params[:input_description], 
+	  		price: params[:input_price],
+	  		supplier_id: params[:input_supplier_id], 
+	  	 	user_id: params[:user_id].to_i, stock: params[:input_stock])
 	  	# @product = Product.id
 	  	@image = Image.create(photo: params[:input_image])
 	  	# @product.save
+	  	if @product.save
 	  	flash[:success] = "item created successfully!"
-
 	  	redirect_to "/products/#{@product.id}"
+	  else
+	  	flash[:danger] = "item could not be created!"
+	  	render "new.html.erb"
 	  end
 	end
 
 	def new
+		@product = Product.new
+		if !(current_user && current_user.admin)
+		redirect_to "/"
+		end
 	end
 
 	def update
@@ -82,27 +88,33 @@ class ProductsController < ApplicationController
 
 		puts "*" *100
 		@product.update(name: params[:input_name], description: params[:input_description], price: params[:input_price],
-		supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock],)	
+		supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock])	
 		# puts @product.inspect
 		# @product.save
+		if @product.save
+
 		flash[:info] = "item updated successfully!"
 		redirect_to "/products"
+	else
+		flash[:danger] = "product could not be edited"
+		render "edit.html.erb"
 		# redirect_to "/products/#{@product.id}"
-
+	end
 	end
 
 	def edit
+				if !(current_user && current_user.admin)
+		redirect_to "/"
+		else
 		item_id = params[:id]
 		@product = Product.find_by(id: item_id)
+		end
 	end
 
 	def destroy
 			# WORKING CODE
 		@product = Product.find_by(id: params[:id])
 		@product.destroy
-		puts "=" *50
-		puts "deleted item: " +params[:id]
-		puts "=" *50
 
 		flash[:danger] = "item deleted successfully!"
 		redirect_to "/products"
@@ -117,3 +129,4 @@ class ProductsController < ApplicationController
 	end
 	end
 end
+

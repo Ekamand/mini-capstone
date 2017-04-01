@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
 
-	before_action :authenticate_user! 
+	 # before_action :authenticate_admin! 
 	def new
 	end
 
 	def create 
 		@user = User.new(name: params[:user_name],
 						email: params[:user_email],
+						admin: false,
 						password: params[:user_password], 
 						password_confirmation: params[:user_password_conformation])
 
