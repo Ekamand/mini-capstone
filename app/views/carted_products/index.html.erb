@@ -20,7 +20,7 @@
     <% @carted_products.each do |carted_product| %>
         <tbody> 
           <tr>
-          <td lass="col-md-2"><img src="<%= carted_product.product.images.first.photo %>" class="thumbnail col-md-2" ></td>
+            <td class="col-md-2"><img src="<%= carted_product.product.images.first.photo %>" class="img-thumbnail" ></td>
             <td class="col-md-2"><h5><%= carted_product.product.name %></h5></td>
             <td class="col-md-2"><h5><%= number_to_currency(carted_product.product.price.round(2)) %> </h5></td>
             <td class="col-md-2">

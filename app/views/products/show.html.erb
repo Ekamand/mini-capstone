@@ -4,8 +4,6 @@
 		<div class="well">   
 		  <div class="item">
 
-
-
 			<% if @product.errors.any? %>
 				<div>
 				    <%= pluralize(@product.errors.count, "error") %>
@@ -19,21 +17,20 @@
 			<% end %>
 
 			<% if current_user && current_user.admin %>
-		 		 <table >
+		 		<table >
 					<tr>
 						<td><a href="/products/<%= @product.id %>/edit" class="btn btn-info" role="button">Edit item</a></td>
 						<td><%= link_to "delete item", "/products/#{@product.id}", :class => 'btn btn-danger', method: :delete %></td>
-		  			  </tr>
-
+		  			</tr>
 		    	</table>
 		    
 			<br>
-		    <br>
+		    
 		    <% end %>
 			<% if @product.images.first == false %>
                 <img src="not_found.png" %>
 			<% else %>
-				<img src="<%= @product.images.first.photo %>" class="thumbnail" >
+				<img src="<%= @product.images.first.photo %>" class="img-thumbnail" width="436">
 			<% end %>
 
 			<div id="item_title">

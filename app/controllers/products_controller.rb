@@ -84,8 +84,6 @@ class ProductsController < ApplicationController
 	def update
 
 		@product = Product.find_by(id: params[:id])
-		
-
 		puts "*" *100
 		@product.update(name: params[:input_name], description: params[:input_description], price: params[:input_price],
 		supplier_id: params[:input_supplier_id], user_id: params[:user_id].to_i, stock: params[:input_stock])	
@@ -103,7 +101,7 @@ class ProductsController < ApplicationController
 	end
 
 	def edit
-				if !(current_user && current_user.admin)
+		if !(current_user && current_user.admin)
 		redirect_to "/"
 		else
 		item_id = params[:id]
